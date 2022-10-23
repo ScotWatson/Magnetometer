@@ -31,7 +31,7 @@ const loadErrorLogModule = (async function () {
   }
 })();
 
-function start( [ evtWindow, ErrorLog ] ) {
+async function start( [ evtWindow, ErrorLog ] ) {
   try {
     let p = document.createElement("p");
     let label = document.createElement("span");
@@ -57,6 +57,8 @@ function start( [ evtWindow, ErrorLog ] ) {
     zDisplay.innerHTML = "";
     p.appendChild(zDisplay);
     document.body.appendChild(p);
+    const result = await navigator.permissions.query({ name: "magnetometer" });
+    console.log(result.status);
     const mag = new Magnetometer({frequency: 60});
     mag.addEventListener("reading", function (evt) {
       xDisplay.innerHTML = mag.x;
