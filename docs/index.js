@@ -68,7 +68,9 @@ async function start( [ evtWindow, ErrorLog ] ) {
     let permitDisplay = document.createElement("p");
     permitDisplay.innerHTML = result.state;
     document.body.appendChild(permitDisplay);
+    console.log(Magnetometer);
     mag = new Magnetometer({frequency: 60});
+    console.log(mag);
     mag.addEventListener("reading", readMag);
     mag.start();
   } catch (e) {
