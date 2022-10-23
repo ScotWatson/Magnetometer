@@ -69,7 +69,7 @@ async function start( [ evtWindow, ErrorLog ] ) {
     p.appendChild(label);
     magDisplay = document.createElement("span");
     magDisplay.innerHTML = "";
-    p.appendChild(zDisplay);
+    p.appendChild(magDisplay);
     document.body.appendChild(p);
     console.log("start query");
     const result = await navigator.permissions.query({ name: "magnetometer" });
