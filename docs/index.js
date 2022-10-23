@@ -74,7 +74,7 @@ async function start( [ evtWindow, ErrorLog ] ) {
     mag.addEventListener("reading", readMag);
     mag.start();
   } catch (e) {
-    ErrorLog.finalCatch({
+    ErrorLog.rethrow({
       functionName: "start",
       error: e,
     });
