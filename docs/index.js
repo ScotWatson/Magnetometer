@@ -19,7 +19,14 @@ const loadErrorLogModule = (async function () {
   return module;
 })();
 
-Promise.all( [ loadWindow, loadErrorLogModule ] ).then(start, fail);
+(async function () {
+  try {
+    const modules = await Promise.all( [ loadWindow, loadErrorLogModule ] );
+    start(modules);
+  } catch (e) {
+    fail(e);
+  }
+})();
 
 function start( [ evtWindow, ErrorLog ] ) {
   try {
@@ -52,7 +59,7 @@ function start( [ evtWindow, ErrorLog ] ) {
     });
     mag.start();
   } catch (e) {
-    finalCatch({
+    ErrorLog.finalCatch({
       functionName: "start",
       error: e,
     });
