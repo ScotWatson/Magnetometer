@@ -65,7 +65,7 @@ async function start( [ evtWindow, ErrorLog ] ) {
     console.log("start query");
     const result = await navigator.permissions.query({ name: "magnetometer" });
     console.log("end query");
-    console.log(result.status);
+    console.log(result);
     mag = new Magnetometer({frequency: 60});
     mag.addEventListener("reading", readMag);
     mag.start();
