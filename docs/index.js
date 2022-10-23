@@ -62,6 +62,14 @@ async function start( [ evtWindow, ErrorLog ] ) {
     zDisplay.innerHTML = "";
     p.appendChild(zDisplay);
     document.body.appendChild(p);
+    p = document.createElement("p");
+    label = document.createElement("span");
+    label.innerHTML = "mag: ";
+    p.appendChild(label);
+    magDisplay = document.createElement("span");
+    magDisplay.innerHTML = "";
+    p.appendChild(zDisplay);
+    document.body.appendChild(p);
     console.log("start query");
     const result = await navigator.permissions.query({ name: "magnetometer" });
     console.log("end query");
@@ -82,7 +90,8 @@ async function start( [ evtWindow, ErrorLog ] ) {
 }
 
 function readMag(evt) {
-  xDisplay.innerHTML = mag.x;
-  yDisplay.innerHTML = mag.y;
-  zDisplay.innerHTML = mag.z;
+  xDisplay.innerHTML = mag.x.toFixed(2) + "uT";
+  yDisplay.innerHTML = mag.y.toFixed(2) + "uT";
+  zDisplay.innerHTML = mag.z.toFixed(2) + "uT";
+  magDisplay.innerHTML = Math.sqrt(mag.x * mag.x + mag.y * mag.y + mag.z * mag.z).toFixed(2) + "uT";
 }
