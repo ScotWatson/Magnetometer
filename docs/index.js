@@ -14,9 +14,13 @@ const loadWindow = new Promise(function (resolve, reject) {
 });
 
 const loadErrorLogModule = (async function () {
-  const module = await import("https://scotwatson.github.io/Debug/ErrorLog.mjs");
-  console.log(Object.getOwnPropertyNames(module));
-  return module;
+  try {
+    const module = await import("https://scotwatson.github.io/Debug/ErrorLog.mjs");
+    console.log(Object.getOwnPropertyNames(module));
+    return module;
+  } catch (e) {
+    console.error(e);
+  }
 })();
 
 (async function () {
@@ -24,7 +28,7 @@ const loadErrorLogModule = (async function () {
     const modules = await Promise.all( [ loadWindow, loadErrorLogModule ] );
     start(modules);
   } catch (e) {
-    fail(e);
+    console.error(e);
   }
 })();
 
@@ -64,8 +68,4 @@ function start( [ evtWindow, ErrorLog ] ) {
       error: e,
     });
   }
-}
-
-function fail(e) {
-  console.error(e);
 }
