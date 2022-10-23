@@ -34,6 +34,7 @@ const loadErrorLogModule = (async function () {
 let xDisplay;
 let yDisplay;
 let zDisplay;
+let magDisplay;
 let mag;
 
 async function start( [ evtWindow, ErrorLog ] ) {
