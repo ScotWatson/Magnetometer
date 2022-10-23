@@ -16,7 +16,6 @@ const loadWindow = new Promise(function (resolve, reject) {
 const loadErrorLogModule = (async function () {
   try {
     const module = await import("https://scotwatson.github.io/Debug/ErrorLog.mjs");
-    console.log(Object.getOwnPropertyNames(module));
     return module;
   } catch (e) {
     console.error(e);
@@ -40,21 +39,24 @@ function start( [ evtWindow, ErrorLog ] ) {
     p.appendChild(label);
     let xDisplay = document.createElement("span");
     xDisplay.innerHTML = "";
-    document.body.appendChild(xDisplay);
+    p.appendChild(xDisplay);
+    document.body.appendChild(p);
     p = document.createElement("p");
     label = document.createElement("span");
     label.innerHTML = "y: ";
     p.appendChild(label);
     let yDisplay = document.createElement("span");
     yDisplay.innerHTML = "";
-    document.body.appendChild(yDisplay);
+    p.appendChild(yDisplay);
+    document.body.appendChild(p);
     p = document.createElement("p");
     label = document.createElement("span");
     label.innerHTML = "z: ";
     p.appendChild(label);
     let zDisplay = document.createElement("span");
     zDisplay.innerHTML = "";
-    document.body.appendChild(zDisplay);
+    p.appendChild(zDisplay);
+    document.body.appendChild(p);
     const mag = new Magnetometer({frequency: 60});
     mag.addEventListener("reading", function (evt) {
       xDisplay.innerHTML = mag.x;
