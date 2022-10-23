@@ -31,13 +31,18 @@ const loadErrorLogModule = (async function () {
   }
 })();
 
+let xDisplay;
+let yDisplay;
+let zDisplay;
+let mag;
+
 async function start( [ evtWindow, ErrorLog ] ) {
   try {
     let p = document.createElement("p");
     let label = document.createElement("span");
     label.innerHTML = "x: ";
     p.appendChild(label);
-    let xDisplay = document.createElement("span");
+    xDisplay = document.createElement("span");
     xDisplay.innerHTML = "";
     p.appendChild(xDisplay);
     document.body.appendChild(p);
@@ -45,7 +50,7 @@ async function start( [ evtWindow, ErrorLog ] ) {
     label = document.createElement("span");
     label.innerHTML = "y: ";
     p.appendChild(label);
-    let yDisplay = document.createElement("span");
+    yDisplay = document.createElement("span");
     yDisplay.innerHTML = "";
     p.appendChild(yDisplay);
     document.body.appendChild(p);
@@ -53,18 +58,16 @@ async function start( [ evtWindow, ErrorLog ] ) {
     label = document.createElement("span");
     label.innerHTML = "z: ";
     p.appendChild(label);
-    let zDisplay = document.createElement("span");
+    zDisplay = document.createElement("span");
     zDisplay.innerHTML = "";
     p.appendChild(zDisplay);
     document.body.appendChild(p);
+    console.log("start query");
     const result = await navigator.permissions.query({ name: "magnetometer" });
+    console.log("end query");
     console.log(result.status);
-    const mag = new Magnetometer({frequency: 60});
-    mag.addEventListener("reading", function (evt) {
-      xDisplay.innerHTML = mag.x;
-      yDisplay.innerHTML = mag.y;
-      zDisplay.innerHTML = mag.z;
-    });
+    mag = new Magnetometer({frequency: 60});
+    mag.addEventListener("reading", readMag);
     mag.start();
   } catch (e) {
     ErrorLog.finalCatch({
@@ -72,4 +75,10 @@ async function start( [ evtWindow, ErrorLog ] ) {
       error: e,
     });
   }
+}
+
+function readMag(evt) {
+  xDisplay.innerHTML = mag.x;
+  yDisplay.innerHTML = mag.y;
+  zDisplay.innerHTML = mag.z;
 }
